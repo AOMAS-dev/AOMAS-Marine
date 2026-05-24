@@ -4,6 +4,7 @@ const nav = document.querySelector("[data-nav]");
 const videoOpenButton = document.querySelector("[data-video-open]");
 const videoModal = document.querySelector("[data-video-modal]");
 const videoPlayer = document.querySelector("[data-video-player]");
+const videoStatus = document.querySelector("[data-video-status]");
 const videoCloseButtons = Array.from(document.querySelectorAll("[data-video-close]"));
 
 const galleryData = {
@@ -153,17 +154,23 @@ function stepGallery(direction) {
   updateGallery(currentGroup, nextIndex);
 }
 
-function openVideoTour() {
+function openVideoTour(event) {
   if (!videoModal || !videoPlayer) return;
 
+  event?.preventDefault();
   videoTrigger = document.activeElement;
   videoModal.hidden = false;
   videoModal.classList.add("is-open");
   videoModal.setAttribute("aria-hidden", "false");
   document.body.classList.add("video-open");
   videoPlayer.currentTime = 0;
+  if (videoStatus) videoStatus.textContent = "";
   const playRequest = videoPlayer.play();
-  if (playRequest) playRequest.catch(() => {});
+  if (playRequest) {
+    playRequest.catch(() => {
+      if (videoStatus) videoStatus.textContent = "Press play to start the video.";
+    });
+  }
   videoModal.querySelector("[data-video-close]")?.focus();
 }
 
@@ -171,6 +178,7 @@ function closeVideoTour() {
   if (!videoModal || !videoPlayer) return;
 
   videoPlayer.pause();
+  if (videoStatus) videoStatus.textContent = "";
   videoModal.classList.remove("is-open");
   videoModal.setAttribute("aria-hidden", "true");
   videoModal.hidden = true;
