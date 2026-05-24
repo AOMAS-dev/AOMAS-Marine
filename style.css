@@ -336,9 +336,9 @@ h3 {
 }
 
 .button-ghost {
-  color: var(--paper-clean);
-  border-color: rgba(255, 255, 255, 0.55);
-  background: rgba(255, 255, 255, 0.08);
+  color: #fff;
+  border-color: #050505;
+  background: #050505;
 }
 
 .button-quiet {
