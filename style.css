@@ -116,8 +116,8 @@ a {
 
 .brand-logo {
   display: block;
-  width: 64px;
-  height: 64px;
+  width: 128px;
+  height: 128px;
   object-fit: contain;
   background: #050505;
   border-radius: 6px;
